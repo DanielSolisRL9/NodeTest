@@ -1,0 +1,28 @@
+services:
+  box3:
+    image: alpine
+    container_name: Box3
+    command: sleep 3600
+  box4:
+    image: alpine
+    command: sleep 3600
+    deploy:
+      replicas: 10 #con replicas se le tiene que quitar el nombre del contenedor
+  db:
+    image: mysql
+    container_name: MySQLDB2
+    ports:
+      - 3311:3306
+      - 3312:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+    volumes:
+#      - ./data:/var/lib/mysql
+      - mysqlsuperdb:/var/lib/mysql
+
+volumes:
+  mysqlsuperdb:
+    driver: local
+
+# docker compose up -d
+# docker compose down
